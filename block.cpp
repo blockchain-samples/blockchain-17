@@ -8,13 +8,6 @@ Block::Block(std::string d, std::string ph)
   std::tie(hash, nonce) = pow.run();
 }
 
-void Block::serialize()
-{
-  std::ofstream f("dump.txt", std::ios::binary);
-  f.write(this, sizeof(*this));
-  f.close();
-}
-
 void Block::debug()
 {
   printf("Data: %s\n", data.c_str());
