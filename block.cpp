@@ -1,4 +1,3 @@
-#include "block.h"
 #include "proofofwork.h"
 
 Block::Block(std::string d, std::string ph)
@@ -6,12 +5,14 @@ Block::Block(std::string d, std::string ph)
 {
   time(&timestamp);
   ProofOfWork pow(this);
-  std::tie(hash, nonce) = pow.Run();
+  std::tie(hash, nonce) = pow.run();
 }
 
-std::string Block::getHash()
+void Block::serialize()
 {
-  return hash;
+  std::ofstream f("dump.txt", std::ios::binary);
+  f.write(this, sizeof(*this));
+  f.close();
 }
 
 void Block::debug()
@@ -20,7 +21,9 @@ void Block::debug()
   printf("Hash: %s\n", hash.c_str());
   printf("Previous Hash: %s\n", prevHash.c_str());
   printf("Timestamp: %ld\n", timestamp);
-  printf("Nonce: %llu\n\n", nonce);
+  printf("Nonce: %llu\n", nonce);
+  ProofOfWork pow(this);
+  printf("Validate: %d\n\n", pow.validate());
 }
 
 Block GenesisBlock()

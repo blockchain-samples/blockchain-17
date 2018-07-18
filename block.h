@@ -5,18 +5,18 @@
 #include <time.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <fstream>
 #include "sha.h"
 
-class Block {
-public:
+struct Block {
   std::string data;
   std::string hash;
   std::string prevHash;
   time_t timestamp;
-  unsigned long long int nonce;
-public:
+  int64 nonce;
+
   Block(std::string d, std::string ph);
-  std::string getHash();
+  void serialize();
   void debug();
 };
 

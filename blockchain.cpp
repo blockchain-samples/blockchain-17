@@ -8,7 +8,7 @@ Blockchain::Blockchain()
 
 void Blockchain::addBlock(std::string data)
 {
-  Block b = {data,blocks[blocks.size()-1].getHash()};
+  Block b = {data,blocks[blocks.size()-1].hash};
   blocks.push_back(b);
 }
 
