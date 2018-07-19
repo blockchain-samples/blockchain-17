@@ -8,6 +8,17 @@ Block::Block(std::string d, std::string ph)
   std::tie(hash, nonce) = pow.run();
 }
 
+std::string Block::serialize()
+{
+  std::stringstream ss;
+  ss << hash      << ","
+     << prevHash  << ","
+     << data      << ","
+     << timestamp << ","
+     << nonce     << "\n";
+  return ss.str();
+}
+
 void Block::debug()
 {
   printf("Data: %s\n", data.c_str());

@@ -16,10 +16,11 @@ struct Block {
   int64 nonce;
 
   Block(std::string d, std::string ph);
-  void serialize();
+  std::string serialize();
   void debug();
 };
 
 Block GenesisBlock();
+Block deserialize(std::string);
 
 #endif // BLOCK_H
