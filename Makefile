@@ -1,7 +1,7 @@
 CC=g++
 
 CFLAGS=-c -Wall -std=c++17
-LDFLAGS=
+LDFLAGS=-l sqlite3
 SOURCES=$(shell find . -name '*.cpp')
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=bc
