@@ -1,11 +1,10 @@
 #include "database.h"
 
-int callback(void *NotUsed, int argc, char **argv, char **azColName) {
-
+int callback(void *NotUsed, int argc, char **argv, char **azColName)
+{
     NotUsed = 0;
     for (int i = 0; i < argc; i++)
         printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
-
     printf("\n");
 
     return 0;
@@ -25,7 +24,7 @@ void DataBase::connectToDataBase()
 
     int rc = sqlite3_exec(db, ss.str().c_str(), 0, 0, &err_msg);
 
-    if(rc != SQLITE_OK )
+    if(rc != SQLITE_OK)
     {
         fprintf(stderr, "SQL error: %s\n", err_msg);
         sqlite3_free(err_msg);
