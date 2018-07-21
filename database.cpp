@@ -64,7 +64,11 @@ std::string DataBase::getBlock(std::string hash)
   }
 
   if(sqlite3_step(stmt) == SQLITE_ROW)
-    return (const char*)sqlite3_column_text(stmt, 1);
+  {
+    std::string result = (const char*)sqlite3_column_text(stmt, 1);
+    sqlite3_finalize(stmt);
+    return result;
+  }
 
   return std::string();
 }
