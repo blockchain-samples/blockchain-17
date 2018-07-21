@@ -51,22 +51,22 @@ bool DataBase::openDataBase()
 std::string DataBase::getBlock(std::string hash)
 {
   sqlite3_stmt    *stmt;
-  const char      *tail;
 
   std::stringstream ss;
   ss << "SELECT * FROM Blockchain WHERE "
      << BLOCKCHAIN_HASH << " LIKE '" << hash << "'";
 
-  int rc = sqlite3_prepare_v2(db, ss.str().c_str(), 1000, &stmt, &tail);
-  if(rc != SQLITE_DONE)
+  int rc = sqlite3_prepare_v2(db, ss.str().c_str(), -1, &stmt, 0);
+  if(rc != SQLITE_OK)
   {
       std::cout << "Can't select data: " << sqlite3_errmsg(db) << std::endl;
       sqlite3_close(db);
   }
 
-  sqlite3_step(stmt);
+  if(sqlite3_step(stmt) == SQLITE_ROW)
+    return (const char*)sqlite3_column_text(stmt, 1);
 
-  return (const char*)sqlite3_column_text(stmt, 1);
+  return std::string();
 }
 
 void DataBase::insertToBlockchain(std::string hash, std::string block)
