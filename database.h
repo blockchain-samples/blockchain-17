@@ -14,9 +14,13 @@
 class DataBase {
 private:
   sqlite3 *db;
+  char *err_msg;
+
   bool openDataBase();
 
 public:
+  DataBase();
+  std::string getBlock(std::string);
   void connectToDataBase();
   void insertToBlockchain(std::string hash, std::string block);
   void closeDataBase();

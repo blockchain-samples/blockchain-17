@@ -3,14 +3,17 @@
 
 #include <vector>
 #include "block.h"
+#include "database.h"
+#include "utils.h"
 
 class Blockchain {
 private:
-  std::vector<Block> blocks;
+  DataBase bc;
 public:
   Blockchain();
+  ~Blockchain();
   void addBlock(std::string);
-  void printChain();
+  void printBlockchain();
 };
 
 #endif // BLOCKCHAIN_H

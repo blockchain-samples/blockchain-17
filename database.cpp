@@ -1,26 +1,28 @@
 #include "database.h"
 
+DataBase::DataBase()
+{
+  err_msg = 0;
+}
+
 int callback(void *NotUsed, int argc, char **argv, char **azColName)
 {
     NotUsed = 0;
-    for (int i = 0; i < argc; i++)
+    for(int i = 0; i < argc; i++)
         printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
     printf("\n");
 
     return 0;
 }
 
-
 void DataBase::connectToDataBase()
 {
   if(openDataBase())
   {
-    char *err_msg = 0;
     std::stringstream ss;
     ss << "CREATE TABLE IF NOT EXISTS " << BLOCKCHAIN << "("
        << BLOCKCHAIN_HASH  << " TEXT, "
        << BLOCKCHAIN_BLOCK << " TEXT);";
-    std::cout << ss.str().c_str() << std::endl;
 
     int rc = sqlite3_exec(db, ss.str().c_str(), 0, 0, &err_msg);
 
@@ -46,18 +48,37 @@ bool DataBase::openDataBase()
   return true;
 }
 
+std::string DataBase::getBlock(std::string hash)
+{
+  sqlite3_stmt    *stmt;
+  const char      *tail;
+
+  std::stringstream ss;
+  ss << "SELECT * FROM Blockchain WHERE "
+     << BLOCKCHAIN_HASH << " LIKE '" << hash << "'";
+
+  int rc = sqlite3_prepare_v2(db, ss.str().c_str(), 1000, &stmt, &tail);
+  if(rc != SQLITE_DONE)
+  {
+      std::cout << "Can't select data: " << sqlite3_errmsg(db) << std::endl;
+      sqlite3_close(db);
+  }
+
+  sqlite3_step(stmt);
+
+  return (const char*)sqlite3_column_text(stmt, 1);
+}
+
 void DataBase::insertToBlockchain(std::string hash, std::string block)
 {
-  char *err_msg = 0;
   std::stringstream ss;
   ss << "INSERT INTO " << BLOCKCHAIN << " VALUES('"
      << hash  << "', '"
      << block << "');";
-  std::cout << ss.str().c_str() << std::endl;
 
   int rc = sqlite3_exec(db, ss.str().c_str(), 0, 0, &err_msg);
 
-  if(rc != SQLITE_OK )
+  if(rc != SQLITE_OK)
   {
       fprintf(stderr, "SQL error: %s\n", err_msg);
       sqlite3_free(err_msg);
@@ -67,7 +88,6 @@ void DataBase::insertToBlockchain(std::string hash, std::string block)
 
 void DataBase::printBlockchain()
 {
-  char *err_msg = 0;
   std::stringstream ss;
   ss << "SELECT * FROM " << BLOCKCHAIN;
 

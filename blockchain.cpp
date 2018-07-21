@@ -2,19 +2,29 @@
 
 Blockchain::Blockchain()
 {
-  Block b = GenesisBlock();
-  b.serialize();
-  blocks.push_back(b);
+  if(!exists(DATABASE_NAME))
+  {
+    bc.connectToDataBase();
+    Block b = GenesisBlock();
+    bc.insertToBlockchain("5","2");
+  }
+  else
+    bc.connectToDataBase();
+}
+
+Blockchain::~Blockchain()
+{
+  bc.closeDataBase();
 }
 
 void Blockchain::addBlock(std::string data)
 {
-  Block b = {data,blocks[blocks.size()-1].hash};
-  blocks.push_back(b);
+  //Block b = {data,blocks[blocks.size()-1].hash};
+  bc.insertToBlockchain("1","3");
 }
 
-void Blockchain::printChain()
+void Blockchain::printBlockchain()
 {
-  for(auto it = blocks.begin(); it != blocks.end(); ++it)
-    it->debug();
+  bc.printBlockchain();
+  std::cout << bc.getBlock("5") << std::endl;
 }

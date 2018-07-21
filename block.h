@@ -5,7 +5,6 @@
 #include <time.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <fstream>
 #include "sha.h"
 
 struct Block {
