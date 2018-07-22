@@ -32,5 +32,5 @@ void Block::debug()
 
 Block GenesisBlock()
 {
-  return Block("Genesis","");
+  return Block("Genesis",std::string());
 }
