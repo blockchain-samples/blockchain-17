@@ -25,5 +25,11 @@ void Blockchain::addBlock(std::string data)
 
 void Blockchain::printBlockchain()
 {
-  bc.printBlockchain();
+  Block b = deserialize(bc.getBlock(bc.getHashLastBlock()));
+  b.debug();
+  while(!b.prevHash.empty())
+  {
+    b = deserialize(bc.getBlock(b.prevHash));
+    b.debug();
+  }
 }
