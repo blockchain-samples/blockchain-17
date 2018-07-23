@@ -14,7 +14,8 @@ struct Block {
   time_t timestamp;
   int64 nonce;
 
-  Block(std::string d, std::string ph);
+  Block(std::string, std::string, std::string, time_t, int64);
+  Block(std::string, std::string);
   std::string serialize();
   void debug();
 };
