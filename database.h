@@ -14,7 +14,7 @@
 class DataBase {
 private:
   sqlite3 *db;
-  char *err_msg;
+  char *err_msg = 0;
 
   bool openDataBase();
 
@@ -25,7 +25,6 @@ public:
   void connectToDataBase();
   void insertToBlockchain(std::string hash, std::string block);
   void closeDataBase();
-  void printBlockchain();
 };
 
 
