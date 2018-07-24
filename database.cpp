@@ -71,7 +71,7 @@ std::string DataBase::getBlock(std::string hash)
   if(rc != SQLITE_OK)
   {
     fprintf(stderr, "Failed to select data\n");
-    fprintf(stderr, "SQL error: %s\n", err_msg);;
+    fprintf(stderr, "SQL error: %s\n", err_msg);
     sqlite3_close(db);
   }
 
@@ -98,7 +98,7 @@ std::string DataBase::getHashLastBlock()
   if(rc != SQLITE_OK)
   {
     fprintf(stderr, "Failed to select data\n");
-    fprintf(stderr, "SQL error: %s\n", err_msg);;
+    fprintf(stderr, "SQL error: %s\n", err_msg);
     sqlite3_close(db);
   }
 
