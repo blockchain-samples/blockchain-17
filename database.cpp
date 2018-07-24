@@ -26,7 +26,7 @@ void DataBase::connectToDataBase()
        << BLOCKCHAIN_HASH  << " TEXT,"
        << BLOCKCHAIN_BLOCK << " TEXT);";
 
-    int rc = sqlite3_exec(db, ss.str().c_str(), 0, 0, &err_msg);
+    int rc = sqlite3_exec(db, SQL, 0, 0, &err_msg);
 
     if(rc != SQLITE_OK)
     {
@@ -43,7 +43,7 @@ void DataBase::insertToBlockchain(std::string hash, std::string block)
   ss << "INSERT INTO " << BLOCKCHAIN << "(" << BLOCKCHAIN_HASH << "," << BLOCKCHAIN_BLOCK << ")"
      << " VALUES('" << hash  << "','" << block << "');";
 
-  int rc = sqlite3_exec(db, ss.str().c_str(), 0, 0, &err_msg);
+  int rc = sqlite3_exec(db, SQL, 0, 0, &err_msg);
 
   if(rc != SQLITE_OK)
   {
@@ -66,7 +66,7 @@ std::string DataBase::getBlock(std::string hash)
   ss << "SELECT " << BLOCKCHAIN_HASH << "," << BLOCKCHAIN_BLOCK
      << " FROM " << BLOCKCHAIN << " WHERE " << BLOCKCHAIN_HASH << " LIKE '" << hash << "'";
 
-  int rc = sqlite3_prepare_v2(db, ss.str().c_str(), -1, &stmt, 0);
+  int rc = sqlite3_prepare_v2(db, SQL, -1, &stmt, 0);
 
   if(rc != SQLITE_OK)
   {
@@ -93,7 +93,7 @@ std::string DataBase::getHashLastBlock()
   ss << "SELECT Id," << BLOCKCHAIN_HASH << " FROM " << BLOCKCHAIN
      << " WHERE Id LIKE (SELECT MAX(Id) FROM " << BLOCKCHAIN << ")";
 
-  int rc = sqlite3_prepare_v2(db, ss.str().c_str(), -1, &stmt, 0);
+  int rc = sqlite3_prepare_v2(db, SQL, -1, &stmt, 0);
 
   if(rc != SQLITE_OK)
   {

@@ -10,6 +10,7 @@
 #define BLOCKCHAIN       "Blockchain"
 #define BLOCKCHAIN_HASH  "Hash"
 #define BLOCKCHAIN_BLOCK "Block"
+#define SQL ss.str().c_str()
 
 class DataBase {
 private:
