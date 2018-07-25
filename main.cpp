@@ -1,13 +1,22 @@
 #include <iostream>
 #include "blockchain.h"
 
-int main()
+int main(int argc, char *argv[])
 {
   Blockchain bc;
-  bc.addBlock("Send 1 BTC to Richard");
-  bc.addBlock("Send 2 BTC to Ivan");
-  bc.addBlock("Send 0.5 BTC to Pavel");
-  bc.printBlockchain();
+  if(argc == 2 && (std::string)argv[1] == "printblockchain")
+  {
+    bc.printBlockchain();
+  } else if(argc == 3 && (std::string)argv[1] == "addblock")
+  {
+    bc.addBlock(argv[2]);
+  }
+  else
+  {
+    printf("Usage:\n");
+    printf("  addblock \"BLOCK_DATA\" - add a block to the blockchain\n");
+    printf("  printblockchain - print all the blocks of the blockchain\n");
+  }
 
   return 0;
 }
