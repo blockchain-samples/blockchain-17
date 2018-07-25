@@ -1,9 +1,9 @@
 #include "proofofwork.h"
 
-Block::Block(std::string d, std::string h, std::string ph, time_t ts, int64 n)
+Block::Block(const std::string& d,  const std::string& h, const std::string& ph, const time_t& ts, const int64& n)
   : data(d), hash(h), prevHash(ph), timestamp(ts), nonce(n) {}
 
-Block::Block(std::string d, std::string ph)
+Block::Block(const std::string& d, const std::string& ph)
   : data(d), prevHash(ph)
 {
   time(&timestamp);
@@ -11,7 +11,7 @@ Block::Block(std::string d, std::string ph)
   std::tie(hash, nonce) = pow.run();
 }
 
-std::string Block::serialize()
+std::string Block::serialize() const
 {
   std::stringstream ss;
   ss << data      << ","
@@ -38,7 +38,7 @@ Block GenesisBlock()
   return Block("Genesis",std::string());
 }
 
-Block deserialize(std::string block)
+Block deserialize(const std::string& block)
 {
   std::stringstream ss(block);
   std::string item;

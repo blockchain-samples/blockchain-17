@@ -19,7 +19,7 @@ Blockchain::~Blockchain()
 
 void Blockchain::addBlock(std::string data)
 {
-  Block b = {data,bc.getHashLastBlock()};
+  Block b(data,bc.getHashLastBlock());
   bc.insertToBlockchain(b.hash,b.serialize());
 }
 

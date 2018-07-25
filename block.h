@@ -14,13 +14,13 @@ struct Block {
   time_t timestamp;
   int64 nonce;
 
-  Block(std::string, std::string, std::string, time_t, int64);
-  Block(std::string, std::string);
-  std::string serialize();
+  Block(const std::string&, const std::string&, const std::string&, const time_t&, const int64&);
+  Block(const std::string&, const std::string&);
+  std::string serialize() const;
   void debug();
 };
 
 Block GenesisBlock();
-Block deserialize(std::string);
+Block deserialize(const std::string&);
 
 #endif // BLOCK_H

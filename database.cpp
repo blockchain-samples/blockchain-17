@@ -37,7 +37,7 @@ void DataBase::connectToDataBase()
   }
 }
 
-void DataBase::insertToBlockchain(std::string hash, std::string block)
+void DataBase::insertToBlockchain(const std::string& hash, const std::string& block)
 {
   std::stringstream ss;
   ss << "INSERT INTO " << BLOCKCHAIN << "(" << BLOCKCHAIN_HASH << "," << BLOCKCHAIN_BLOCK << ")"
@@ -58,7 +58,7 @@ void DataBase::closeDataBase()
     sqlite3_close(db);
 }
 
-std::string DataBase::getBlock(std::string hash)
+std::string DataBase::getBlock(const std::string& hash)
 {
   sqlite3_stmt *stmt;
 

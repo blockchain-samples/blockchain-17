@@ -21,10 +21,10 @@ private:
 
 public:
   DataBase();
-  std::string getBlock(std::string);
+  std::string getBlock(const std::string&);
   std::string getHashLastBlock();
   void connectToDataBase();
-  void insertToBlockchain(std::string hash, std::string block);
+  void insertToBlockchain(const std::string& hash, const std::string& block);
   void closeDataBase();
 };
 
