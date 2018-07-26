@@ -3,7 +3,7 @@
 ProofOfWork::ProofOfWork(Block *pb)
   : pblock(pb)
 {
-  target = "000081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08";
+  target = "0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
 }
 
 std::pair<std::string,int64> ProofOfWork::run()
@@ -28,5 +28,5 @@ bool ProofOfWork::validate()
 {
   std::string buff = pblock->data + pblock->prevHash + std::to_string(pblock->timestamp)
     + std::to_string(pblock->nonce);
-    return sha256(buff) == pblock->hash;
+  return sha256(buff) == pblock->hash;
 }
