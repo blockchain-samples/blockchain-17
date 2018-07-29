@@ -15,7 +15,7 @@
 class DataBase {
 private:
   sqlite3 *db;
-  char *err_msg = 0;
+  char *err_msg {0};
 
   bool openDataBase();
 
