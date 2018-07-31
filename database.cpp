@@ -1,7 +1,5 @@
 #include "database.h"
 
-DataBase::DataBase(){}
-
 bool DataBase::openDataBase()
 {
   int rc = sqlite3_open(DATABASE_NAME, &db);

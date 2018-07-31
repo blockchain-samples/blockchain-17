@@ -14,13 +14,13 @@
 
 class DataBase {
 private:
-  sqlite3 *db;
-  char *err_msg {0};
+  sqlite3   *db {nullptr};
+  char *err_msg {nullptr};
 
   bool openDataBase();
 
 public:
-  DataBase();
+  DataBase() = default;
   std::string getBlock(const std::string&);
   std::string getHashLastBlock();
   void connectToDataBase();
