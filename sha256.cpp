@@ -4,7 +4,7 @@ std::string preprocessing256(std::string mess)
 {
   std::stringstream ss;
 
-  int32 l {(int32)(8 * mess.length())};
+  int32 l {8 * (int32)mess.length()};
   int32 k {(448 - (8 + l)) % 512};
 
   for(size_t i {}; i < mess.length(); ++i)
